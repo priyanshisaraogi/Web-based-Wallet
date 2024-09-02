@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import './App.css';
 import { generateMnemonic, mnemonicToSeedSync } from "bip39";
-
+import { SolanaWallet } from './SolanaWallet';
+import {EthWallet} from './EthWallet';
 
 
 function App() {
@@ -13,9 +14,9 @@ function App() {
         const mn = await generateMnemonic();
         setMnemonic(mn);
         const seedBuffer= mnemonicToSeedSync(mn);
-        setSeed(seedBuffer.toString('hex'));
+        setSeed(seedBuffer.toString());
       }}>
-        Create Seed Phrase
+        Generate Mnemonic
         </button>
       
     );
@@ -26,7 +27,11 @@ function App() {
       <h1>PriWallet</h1>
       <MyButton />
       <p>{mnemonic}</p>
+      {seed && <SolanaWallet seed={seed} />}
+      {seed && <EthWallet seed={seed} />}
     </div>
+    
+    
   );
 }
 

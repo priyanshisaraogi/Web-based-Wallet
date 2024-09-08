@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { mnemonicToSeed } from "bip39";
 import { Wallet, HDNodeWallet } from "ethers";
+import { Button } from "@mui/material";
 
 export const EthWallet = ({mnemonic}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -8,7 +9,7 @@ export const EthWallet = ({mnemonic}) => {
 
     return (
         <div>
-            <button onClick={async function() {
+            <Button onClick={async function() {
                 const seed = await mnemonicToSeed(mnemonic);
                 const derivationPath = `m/44'/60'/${currentIndex}'/0'`;
                  const hdNode = HDNodeWallet.fromSeed(seed);
@@ -19,7 +20,7 @@ export const EthWallet = ({mnemonic}) => {
                 setAddresses([...addresses, wallet.address]);
             }}>
                 Add ETH wallet
-            </button>
+            </Button>
 
             {addresses.map(p => <div>
                 {p}
